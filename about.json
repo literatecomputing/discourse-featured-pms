@@ -1,0 +1,9 @@
+{
+  "name": "Featured PMs",
+  "component": true,
+  "authors": "Jay Pfaffman",
+  "about_url": "https://meta.discourse.org/t/featured-pms/288916",
+  "license_url": "https://github.com/literatecomputing/discourse-featured-pms/blob/main/LICENSE",
+  "minimum_discourse_version": "3.2.0.beta3",
+  "maximum_discourse_version": null
+}
