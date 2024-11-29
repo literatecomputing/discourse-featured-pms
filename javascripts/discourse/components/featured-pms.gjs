@@ -81,12 +81,9 @@ export default class FeaturedPms extends Component {
 
   @action
   async findMyFilteredTopics() {
-    console.log("Finding filtered topics (this, list)!" , this, list);
     const path = list.filter === "latest" ? "" : `-${list.filter}`;
-
     const groupName = 'literatecomputing-staff';
     let groupTopicListFilter = `topics/private-messages-group/${this.currentUser.username}/${groupName}`;
-    // https://staging.dashboard.literatecomputing.com/topics/private-messages-sent/pfaffman.json
 
     const userTopicListFilter = `topics/private-messages${path}/${this.currentUser.username_lower}`;
     // const userTopicListFilter = `topics/private-messages/${this.currentUser.username_lower}`;
@@ -101,10 +98,7 @@ export default class FeaturedPms extends Component {
         // solved: solvedFilter,
         },
     });
-    console.log(`done awaiting for ${list.title}`)
-    console.log("might be a topicList", topicList);
-    console.log("do I have topics?", topicList.topic_list.topics, this.args.list.length);
-    if (topicList.topics) {
+        if (topicList.topics) {
       return (this.filteredTopics = topicList.topics.slice(
         0,
         this.args.list.length,

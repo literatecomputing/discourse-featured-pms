@@ -5,5 +5,8 @@
     "eslint-config-discourse": "latest",
     "prettier": "^3.1.1",
     "prettier-plugin-ember-template-tag": "^1.1.0"
+  },
+  "dependencies": {
+    "ember-template-lint": "^6.0.0"
   }
 }
