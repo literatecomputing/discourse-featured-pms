@@ -2,7 +2,8 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { defaultHomepage } from 'discourse/lib/utilities';
-import FeaturedPms from '../components/featured-list';
+import { TopicList } from "discourse/components/topic-list";
+import FeaturedPms from '../components/featured-pms';
 
 export default class FeaturedPmsWrapper extends Component {
   @service router;
@@ -10,9 +11,11 @@ export default class FeaturedPmsWrapper extends Component {
   @tracked FeaturedPms = JSON.parse(settings.featured_lists);
 
   <template>
+  WRAPPER TEMPLATE
     {{#if this.showOnRoute}}
       <div class='featured-pms__wrapper {{settings.plugin_outlet}}'>
         {{#each this.FeaturedPms as |list|}}
+          <div>calling featuredPMS with title: {{list.title}}</div>
           <FeaturedPms @list={{list}} />
         {{/each}}
       </div>

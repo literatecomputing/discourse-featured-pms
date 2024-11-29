@@ -1,5 +1,5 @@
 {
-  "author": "Manuel Kostka",
+  "author": "Jay Pfaffman",
   "license": "GPL-2.0-only",
   "devDependencies": {
     "eslint-config-discourse": "latest",

@@ -8,6 +8,7 @@ import DButton from 'discourse/components/d-button';
 import TopicList from 'discourse/components/topic-list';
 import Category from 'discourse/models/category';
 import i18n from 'discourse-common/helpers/i18n';
+import UserTopicListRoute from "discourse/routes/user-topic-list";
 
 export default class FeaturedPms extends Component {
   @service store;
@@ -16,10 +17,10 @@ export default class FeaturedPms extends Component {
   @service currentUser;
   @tracked filteredTopics = null;
 
-  <template>
+    <template>
     {{#if this.filteredTopics}}
-      <div class='featured-pms__list-container {{@list.classname}}'>
-        <div class='featured-pms__list-header'>
+      <div class='featured-lists__list-container {{@list.classname}}'>
+        <div class='featured-lists__list-header'>
           <h2>{{@list.title}}</h2>
           <a href='{{@list.link}}' class='feed-link'>{{i18n
               (themePrefix 'more_link')
@@ -33,18 +34,19 @@ export default class FeaturedPms extends Component {
           <TopicList
             @topics={{this.filteredTopics}}
             @showPosters='true'
-            class='featured-pms__list-body'
+            class='featured-lists__list-body'
           />
         </ConditionalLoadingSpinner>
       </div>
     {{/if}}
   </template>
 
+  
   constructor() {
     super(...arguments);
     this.findFilteredTopics();
   }
-
+  
   @action
   async findFilteredTopics() {
     const userFilters = ['new', 'unread'];
@@ -57,8 +59,12 @@ export default class FeaturedPms extends Component {
       solvedFilter = this.args.list.solved === 'solved' ? 'yes' : 'no';
     }
 
+    const list = this.args.list;
+    const path = list.filter === "latest" ? "" : `-${list.filter}`;
+    const filter = `topics/private-messages${path}/${this.currentUser.username}`;
+
     const topicList = await this.store.findFiltered('topicList', {
-      filter: this.args.list.filter,
+      filter: filter,
       params: {
         category: this.args.list.category,
         tags: this.args.list.tag,
@@ -74,10 +80,43 @@ export default class FeaturedPms extends Component {
   }
 
   @action
+  async findMyFilteredTopics() {
+    console.log("Finding filtered topics (this, list)!" , this, list);
+    const path = list.filter === "latest" ? "" : `-${list.filter}`;
+
+    const groupName = 'literatecomputing-staff';
+    let groupTopicListFilter = `topics/private-messages-group/${this.currentUser.username}/${groupName}`;
+    // https://staging.dashboard.literatecomputing.com/topics/private-messages-sent/pfaffman.json
+
+    const userTopicListFilter = `topics/private-messages${path}/${this.currentUser.username_lower}`;
+    // const userTopicListFilter = `topics/private-messages/${this.currentUser.username_lower}`;
+    
+    let topicListFilter = userTopicListFilter;
+    console.log("topic list filter", topicListFilter);
+    const topicList = await this.store.findFiltered('topicList', {
+      filter: topicListFilter,
+      params: {
+        // category: this.args.list.category,
+        // tags: this.args.list.tag,
+        // solved: solvedFilter,
+        },
+    });
+    console.log(`done awaiting for ${list.title}`)
+    console.log("might be a topicList", topicList);
+    console.log("do I have topics?", topicList.topic_list.topics, this.args.list.length);
+    if (topicList.topics) {
+      return (this.filteredTopics = topicList.topics.slice(
+        0,
+        this.args.list.length,
+      ));      
+    }
+  }
+
+  @action
   createTopic() {
     this.composer.openNewTopic({
       category: Category.findById(this.args.list.category),
-      tags: this.args.list.tag,
+      // tags: this.args.list.tag,
       preferDraft: 'true',
     });
   }

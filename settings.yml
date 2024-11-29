@@ -20,27 +20,14 @@ featured_lists:
       },
       "filter": {
         "type": "string",
-        "description": "Choose the type of list",
+        "description": "Choose the type of PMs to show",
         "enum": [
           "latest",
-          "hot",
-          "top",
+          "archive",
+          "sent",
           "new",
           "unread"
         ]
-      },
-      "solved": {
-        "type": "string",
-        "description": "Filter by solved or unsolved",
-        "enum": [
-          "",
-          "solved",
-          "unsolved"
-        ]
-      },
-      "category": {
-        "type": "string",
-        "description": "Filter by category id"
       },
       "tag": {
         "type": "string",
