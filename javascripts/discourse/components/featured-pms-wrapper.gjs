@@ -23,7 +23,7 @@ export default class FeaturedPmsWrapper extends Component {
 
   get showOnRoute() {
     // TODO: add setting to show for non-admins
-    if (!this.currentUser.admin) {
+    if (!this.currentUser?.admin ?? false ) {
       return false
     }
     const currentRoute = this.router.currentRouteName;
