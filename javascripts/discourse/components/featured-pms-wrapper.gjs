@@ -7,15 +7,14 @@ import FeaturedPms from '../components/featured-pms';
 
 export default class FeaturedPmsWrapper extends Component {
   @service router;
+  @service currentUser;
   @service siteSettings;
   @tracked FeaturedPms = JSON.parse(settings.featured_lists);
 
   <template>
-  WRAPPER TEMPLATE
     {{#if this.showOnRoute}}
       <div class='featured-pms__wrapper {{settings.plugin_outlet}}'>
         {{#each this.FeaturedPms as |list|}}
-          <div>calling featuredPMS with title: {{list.title}}</div>
           <FeaturedPms @list={{list}} />
         {{/each}}
       </div>
@@ -23,6 +22,10 @@ export default class FeaturedPmsWrapper extends Component {
   </template>
 
   get showOnRoute() {
+    // TODO: add setting to show for non-admins
+    if (!this.currentUser.admin) {
+      return false
+    }
     const currentRoute = this.router.currentRouteName;
     switch (settings.show_on) {
       case 'everywhere':
