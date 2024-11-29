@@ -1,8 +1,9 @@
 featured_lists:
   default: >-
-    [{"title":"Latest Topics","length":3,"filter":"latest", "tag":"", "category":"","link":"/latest", "solved":""},
-    {"title":"Category: Site Feedback","length":3,"filter":"latest", "tag":"", "category":"2","link":"/c/2", "solved":""},
-    {"title":"Tag: featured","length":3,"filter":"latest", "tag":"featured", "category":"","link":"/tag/featured", "solved":""}]
+    [{"title":"New Pms","length":5,"filter":"new", "tag":"", "link":"/my/messages/new", "solved":""},
+    {"title":"Unread Pms","length":5,"filter":"unread", "tag":"", "link":"/my/messages/unread", "solved":""},
+    {"title":"Sent Pms","length":5,"filter":"sent", "tag":"", "link":"/my/messages/sent", "solved":""},
+    {"title":"Archived Pms","length":5,"filter":"archive", "tag":"", "link":"/my/messages/archive", "solved":""}]
   json_schema: '{
   "type": "array",
   "format": "table",
@@ -46,7 +47,7 @@ featured_lists:
   }
 }'
 show_on:
-  default: homepage
+  default: latest
   type: enum
   choices:
     - everywhere
