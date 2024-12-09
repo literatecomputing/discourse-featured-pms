@@ -3,6 +3,7 @@ featured_lists:
     [{"title":"New Pms","length":5,"filter":"new", "tag":"", "link":"/my/messages/new", "solved":""},
     {"title":"Unread Pms","length":5,"filter":"unread", "tag":"", "link":"/my/messages/unread", "solved":""},
     {"title":"Sent Pms","length":5,"filter":"sent", "tag":"", "link":"/my/messages/sent", "solved":""},
+    {"title":"Literate Computing Pms","length":5,"filter":"archive", "tag":"", "link":"/my/messages/archive", "solved":"", "group": "literate-computing"}]
     {"title":"Archived Pms","length":5,"filter":"archive", "tag":"", "link":"/my/messages/archive", "solved":""}]
   json_schema: '{
   "type": "array",
@@ -41,6 +42,10 @@ featured_lists:
       "classname": {
         "type": "string",
         "description": "Set a CSS class name for custom styles"
+      }
+      "group": {
+        "type": "string",
+        "description": "Group mailboxes"
       }
     },
     "additionalProperties": false
